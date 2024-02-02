@@ -52,18 +52,18 @@ public class HotelDao {
     public boolean save(Hotel hotel) {
         String query = "INSERT INTO public.hotel" +
                 "(" +
-                "hotel_name," +
-                "hotel_mail," +
-                "hotel_phone," +
-                "hotel_address," +
-                "hotel_star," +
-                "hotel_carpark," +
-                "hotel_wifi," +
-                "hotel_pool," +
-                "hotel_fitness," +
-                "hotel_concierge," +
-                "hotel_spa," +
-                "hotel_roomservice" +
+                "name," +
+                "mail," +
+                "phone," +
+                "address," +
+                "star," +
+                "car_park," +
+                "wifi," +
+                "pool," +
+                "fitness," +
+                "concierge," +
+                "spa," +
+                "room_service" +
                 ")" +
                 " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         try {

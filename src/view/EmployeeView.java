@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 public class EmployeeView extends Layout {
@@ -48,14 +50,16 @@ public class EmployeeView extends Layout {
     private HotelManager hotelManager;
     private Object[] col_hotel;
 
+
     public EmployeeView(User loginUser){
         this.hotelManager = new HotelManager();
         this.add(container);
         this.guiInitilaze(1200,600);
         this.user = loginUser;
-        if (this.user == null){
+        /*if (this.user == null){
             dispose();
-        }
+
+        }*/
         lbl_welcome.setText("Hoş geldiniz : " + this.user.getUsername());
 
         Object[] col_hotel = {"Otel ID","Otel Adı","Otel Şehri","Otel Maili","Otel Telefonu","Otel Yıldızı","Otel Otoparkı","Otel Wifi","Otel Havuzu","Otel Spor Salonu","Otel Kapı Hizmeti","Otel Spa","Otel Oda Servisi"};
@@ -70,17 +74,26 @@ public class EmployeeView extends Layout {
         tbl_hotel.getTableHeader().setReorderingAllowed(false);
         tbl_hotel.setEnabled(false);
         loadHotelTable(null);
+        loadHotelAddView();
 
     }
-
     public void loadHotelAddView(){
+        btn_add_hotel.addActionListener(e -> {
+            HotelAddView hotelAddView = new HotelAddView(null);
+            hotelAddView.addWindowListener(new WindowAdapter() { //yeni açılan pencereyi izler
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    loadHotelTable(null); //kapandıktan sonra tabloyu günceller
+                }
+            });
+        });
 
     }
 
     public void loadHotelTable(ArrayList<Object[]> hotelList) {
         col_hotel = new Object[]{"Otel ID","Otel Adı","Otel Şehri","Otel Maili","Otel Telefonu","Otel Yıldızı","Otel Otoparkı","Otel Wifi","Otel Havuzu","Otel Spor Salonu","Otel Kapı Hizmeti","Otel Spa","Otel Oda Servisi"};
         if (hotelList == null){
-            hotelList = this.hotelManager.getForTable(col_hotel.length,hotelManager.findAll());
+            hotelList = this.hotelManager.getForTable(col_hotel.length,this.hotelManager.findAll());
         }
         this.createTable(this.tmdl_hotel,this.tbl_hotel, col_hotel, hotelList);
     }

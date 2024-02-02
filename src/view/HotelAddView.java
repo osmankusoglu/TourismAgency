@@ -35,7 +35,7 @@ public class HotelAddView extends Layout {
         this.hotelManager = new HotelManager();
         this.add(container);
         this.guiInitilaze(300, 500);
-        //loadHotelAddComponent();
+        loadHotelAddComponent();
 
     }
 
@@ -76,5 +76,7 @@ public class HotelAddView extends Layout {
 
             }
         });
+
     }
+
 }
