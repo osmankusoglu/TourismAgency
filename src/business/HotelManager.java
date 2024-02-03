@@ -22,6 +22,10 @@ public class HotelManager {
         return this.hotelDao.findAll();
     }
 
+    public Hotel getById(int id){
+        return this.hotelDao.getById(id);
+    }
+
     public ArrayList<Object[]> getForTable(int size, ArrayList<Hotel> hotels) {
         ArrayList<Object[]> hotelList = new ArrayList<>();
         for (Hotel obj : hotels) {

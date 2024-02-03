@@ -1,15 +1,13 @@
 package view;
 
 import business.HotelManager;
+import business.PencionManager;
 import entity.Hotel;
 import entity.User;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class EmployeeView extends Layout {
@@ -49,32 +47,58 @@ public class EmployeeView extends Layout {
     private DefaultTableModel tmdl_hotel = new DefaultTableModel();
     private HotelManager hotelManager;
     private Object[] col_hotel;
-
+    private JPopupMenu hotelMenu;
+    Object[] col_pancion;
+    private DefaultTableModel tmdl_pancion = new DefaultTableModel();
+    private PencionManager pencionManager;
 
     public EmployeeView(User loginUser){
         this.hotelManager = new HotelManager();
+        this.pencionManager = new PencionManager(null);
+
         this.add(container);
         this.guiInitilaze(1200,600);
         this.user = loginUser;
+        loadHotelAddView();
+        loadPancionTable(null);
         /*if (this.user == null){
             dispose();
 
         }*/
-        lbl_welcome.setText("Hoş geldiniz : " + this.user.getUsername());
+        this.lbl_welcome.setText("Hoş geldiniz : " + this.user.getUsername());
 
         Object[] col_hotel = {"Otel ID","Otel Adı","Otel Şehri","Otel Maili","Otel Telefonu","Otel Yıldızı","Otel Otoparkı","Otel Wifi","Otel Havuzu","Otel Spor Salonu","Otel Kapı Hizmeti","Otel Spa","Otel Oda Servisi"};
-        ArrayList<Hotel> hotelList = hotelManager.findAll();
+        ArrayList<Hotel> hotelList = this.hotelManager.findAll();
         tmdl_hotel.setColumnIdentifiers(col_hotel);
         for (Hotel hotel : hotelList) {
-            Object[] obj = {hotel.getId(),hotel.getName(),hotel.getAddress(),hotel.getMail(),hotel.getPhone(),hotel.getStar()};
+            Object[] obj = {hotel.getId(),hotel.getName(),hotel.getAddress(),hotel.getMail(),hotel.getPhone(),hotel.getStar(),hotel.isCar_park(),hotel.isWifi(),hotel.isPool(),hotel.isFitness(),hotel.isConcierge(),hotel.isSpa(),hotel.isRoom_service()};
             tmdl_hotel.addRow(obj);
         }
 
-        tbl_hotel.setModel(tmdl_hotel);
-        tbl_hotel.getTableHeader().setReorderingAllowed(false);
-        tbl_hotel.setEnabled(false);
-        loadHotelTable(null);
-        loadHotelAddView();
+        this.tbl_hotel.setModel(tmdl_hotel);
+        this.tbl_hotel.getTableHeader().setReorderingAllowed(false);
+        this.tbl_hotel.setEnabled(false);
+
+        this.tbl_hotel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                int selectedRow = tbl_hotel.rowAtPoint(e.getPoint());
+                tbl_hotel.setRowSelectionInterval(selectedRow,selectedRow);
+            }
+        });
+        this.hotelMenu = new JPopupMenu();
+        this.hotelMenu.add("Pansiyon Tipi Ekle").addActionListener(e -> {
+            int selectedId = getTableSelectedRow(tbl_hotel, 0);
+            PencionView pensionView = new PencionView(hotelManager.getById(selectedId));
+            loadPancionTable(null);
+
+
+        });
+
+        this.hotelMenu.add("Sezon Ekle");
+
+        this.tbl_hotel.setComponentPopupMenu(hotelMenu);
+        loadPancionTable(null);
 
     }
     public void loadHotelAddView(){
@@ -96,5 +120,15 @@ public class EmployeeView extends Layout {
             hotelList = this.hotelManager.getForTable(col_hotel.length,this.hotelManager.findAll());
         }
         this.createTable(this.tmdl_hotel,this.tbl_hotel, col_hotel, hotelList);
+    }
+    public void loadPancionTable(ArrayList<Object[]> pancionList) {
+        col_pancion = new Object[]{"pencion_id", "hotel_id", "pencion_type"};
+        if (pancionList == null) {
+            pancionList = this.pencionManager.getForTable(col_pancion.length, this.pencionManager.findAll());
+        }
+        //System.out.println("loadhotel" + pancionList.size());
+        createTable(this.tmdl_pancion, this.tbl_pencion, col_pancion, pancionList);
+
+
     }
 }
