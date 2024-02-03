@@ -96,6 +96,7 @@
                     </constraints>
                     <properties>
                       <font style="1"/>
+                      <labelFor value="60119"/>
                       <text value="Otel Adı"/>
                     </properties>
                   </component>

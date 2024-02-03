@@ -2,6 +2,7 @@ package view;
 
 import business.HotelManager;
 import business.PencionManager;
+import business.SeasonManager;
 import entity.Hotel;
 import entity.User;
 
@@ -49,15 +50,20 @@ public class EmployeeView extends Layout {
     private Object[] col_hotel;
     private JPopupMenu hotelMenu;
     Object[] col_pancion;
+    Object[] col_season;
     private DefaultTableModel tmdl_pancion = new DefaultTableModel();
+    private DefaultTableModel tmdl_season = new DefaultTableModel();
     private PencionManager pencionManager;
+    private SeasonManager seasonManager;
 
-    public EmployeeView(User loginUser){
+    public EmployeeView(User loginUser) {
         this.hotelManager = new HotelManager();
         this.pencionManager = new PencionManager(null);
+        this.seasonManager = new SeasonManager(null);
+
 
         this.add(container);
-        this.guiInitilaze(1200,600);
+        this.guiInitilaze(1200, 600);
         this.user = loginUser;
         loadHotelAddView();
         loadPancionTable(null);
@@ -67,13 +73,14 @@ public class EmployeeView extends Layout {
         }*/
         this.lbl_welcome.setText("Hoş geldiniz : " + this.user.getUsername());
 
-        Object[] col_hotel = {"Otel ID","Otel Adı","Otel Şehri","Otel Maili","Otel Telefonu","Otel Yıldızı","Otel Otoparkı","Otel Wifi","Otel Havuzu","Otel Spor Salonu","Otel Kapı Hizmeti","Otel Spa","Otel Oda Servisi"};
+        Object[] col_hotel = {"Otel ID", "Otel Adı", "Otel Şehri", "Otel Maili", "Otel Telefonu", "Otel Yıldızı", "Otel Otoparkı", "Otel Wifi", "Otel Havuzu", "Otel Spor Salonu", "Otel Kapı Hizmeti", "Otel Spa", "Otel Oda Servisi"};
         ArrayList<Hotel> hotelList = this.hotelManager.findAll();
         tmdl_hotel.setColumnIdentifiers(col_hotel);
         for (Hotel hotel : hotelList) {
-            Object[] obj = {hotel.getId(),hotel.getName(),hotel.getAddress(),hotel.getMail(),hotel.getPhone(),hotel.getStar(),hotel.isCar_park(),hotel.isWifi(),hotel.isPool(),hotel.isFitness(),hotel.isConcierge(),hotel.isSpa(),hotel.isRoom_service()};
+            Object[] obj = {hotel.getId(), hotel.getName(), hotel.getAddress(), hotel.getMail(), hotel.getPhone(), hotel.getStar(), hotel.isCar_park(), hotel.isWifi(), hotel.isPool(), hotel.isFitness(), hotel.isConcierge(), hotel.isSpa(), hotel.isRoom_service()};
             tmdl_hotel.addRow(obj);
         }
+
 
         this.tbl_hotel.setModel(tmdl_hotel);
         this.tbl_hotel.getTableHeader().setReorderingAllowed(false);
@@ -83,7 +90,7 @@ public class EmployeeView extends Layout {
             @Override
             public void mousePressed(MouseEvent e) {
                 int selectedRow = tbl_hotel.rowAtPoint(e.getPoint());
-                tbl_hotel.setRowSelectionInterval(selectedRow,selectedRow);
+                tbl_hotel.setRowSelectionInterval(selectedRow, selectedRow);
             }
         });
         this.hotelMenu = new JPopupMenu();
@@ -91,17 +98,20 @@ public class EmployeeView extends Layout {
             int selectedId = getTableSelectedRow(tbl_hotel, 0);
             PencionView pensionView = new PencionView(hotelManager.getById(selectedId));
             loadPancionTable(null);
-
-
         });
 
-        this.hotelMenu.add("Sezon Ekle");
+        this.hotelMenu.add("Sezon Ekle").addActionListener(e -> {
+            int selectedId = getTableSelectedRow(tbl_hotel, 0);
+            SeasonView seasonView = new SeasonView(hotelManager.getById(selectedId));
+            loadSeasonTable(null);
+        });
 
         this.tbl_hotel.setComponentPopupMenu(hotelMenu);
         loadPancionTable(null);
-
+        loadSeasonTable(null);
     }
-    public void loadHotelAddView(){
+
+    public void loadHotelAddView() {
         btn_add_hotel.addActionListener(e -> {
             HotelAddView hotelAddView = new HotelAddView(null);
             hotelAddView.addWindowListener(new WindowAdapter() { //yeni açılan pencereyi izler
@@ -115,12 +125,13 @@ public class EmployeeView extends Layout {
     }
 
     public void loadHotelTable(ArrayList<Object[]> hotelList) {
-        col_hotel = new Object[]{"Otel ID","Otel Adı","Otel Şehri","Otel Maili","Otel Telefonu","Otel Yıldızı","Otel Otoparkı","Otel Wifi","Otel Havuzu","Otel Spor Salonu","Otel Kapı Hizmeti","Otel Spa","Otel Oda Servisi"};
-        if (hotelList == null){
-            hotelList = this.hotelManager.getForTable(col_hotel.length,this.hotelManager.findAll());
+        col_hotel = new Object[]{"Otel ID", "Otel Adı", "Otel Şehri", "Otel Maili", "Otel Telefonu", "Otel Yıldızı", "Otel Otoparkı", "Otel Wifi", "Otel Havuzu", "Otel Spor Salonu", "Otel Kapı Hizmeti", "Otel Spa", "Otel Oda Servisi"};
+        if (hotelList == null) {
+            hotelList = this.hotelManager.getForTable(col_hotel.length, this.hotelManager.findAll());
         }
-        this.createTable(this.tmdl_hotel,this.tbl_hotel, col_hotel, hotelList);
+        this.createTable(this.tmdl_hotel, this.tbl_hotel, col_hotel, hotelList);
     }
+
     public void loadPancionTable(ArrayList<Object[]> pancionList) {
         col_pancion = new Object[]{"pencion_id", "hotel_id", "pencion_type"};
         if (pancionList == null) {
@@ -129,6 +140,14 @@ public class EmployeeView extends Layout {
         //System.out.println("loadhotel" + pancionList.size());
         createTable(this.tmdl_pancion, this.tbl_pencion, col_pancion, pancionList);
 
+    }
 
+    public void loadSeasonTable(ArrayList<Object[]> seasonList) {
+        col_season = new Object[]{"season_id", "hotel_id", "season_strt_date", "season_fnsh_date"};
+        if (seasonList == null) {
+            seasonList = this.seasonManager.getForTable(col_season.length, this.seasonManager.findAll());
+        }
+        //System.out.println("loadhotel" + pancionList.size());
+        createTable(this.tmdl_season, this.tbl_season, col_season, seasonList);
     }
 }

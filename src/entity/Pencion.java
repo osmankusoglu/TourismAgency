@@ -4,6 +4,7 @@ public class Pencion {
     private int pencion_id;
     private int hotel_id;
     private String pencion_type;
+
     public Pencion(){
 
     }

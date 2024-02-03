@@ -15,7 +15,7 @@ public class PencionManager {
         this.pencionDao = new PencionDao();
     }
     public boolean savePencion(Hotel hotel, String val){
-        if (hotel.getId() !=0 ){
+       if (hotel.getId() !=0 ){
             Helper.showMsg("done");
 
         }

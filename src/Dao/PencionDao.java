@@ -18,9 +18,9 @@ public class PencionDao {
     }
 
     public boolean savePencion(Hotel hotel, String val){
-        String query = "INSERT INTO public.pencion(" +
-                " hotel_id, pencion_type)" +
-                " VALUES ( ?, ?)";
+        String query = "INSERT INTO public.pencion" +
+                " (hotel_id, pencion_type)" +
+                " VALUES ( ?, ? )";
         try {
             PreparedStatement pr = con.prepareStatement(query);
             pr.setInt(1,hotel.getId());
