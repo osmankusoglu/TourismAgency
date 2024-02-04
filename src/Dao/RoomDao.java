@@ -13,9 +13,10 @@ import java.util.ArrayList;
 
 public class RoomDao {
     private final Connection con;
-    private HotelDao hotelDao;
     private PencionDao pencionDao;
     private SeasonDao seasonDao;
+    private HotelDao hotelDao;
+
 
     public RoomDao() {
         this.hotelDao = new HotelDao();
@@ -41,29 +42,29 @@ public class RoomDao {
         obj.setRoom_game_console(rs.getBoolean("room_game_console"));
         obj.setRoom_cash_box(rs.getBoolean("room_cash_box"));
         obj.setRoom_projection(rs.getBoolean("room_projection"));
+
         obj.setPencion(this.pencionDao.getById(rs.getInt("pencion_id")));
         obj.setSeason(this.seasonDao.getById(rs.getInt("season_id")));
-        obj.setHotel(this.hotelDao.getById(rs.getInt("id")));
-
+        obj.setHotel(this.hotelDao.getById(rs.getInt("hotel_id")));
         return obj;
     }
     public boolean save(Room room) {
         String query = "INSERT INTO public.room" +
                 "(" +
-                "hotel_id," +
-                "pencion_id," +
-                "season_id," +
-                "room_type," +
-                "room_stock," +
-                "room_adult_price," +
-                "room_child_price," +
-                "room_bed_capacity," +
-                "room_square_meter," +
-                "room_television," +
-                "room_minibar," +
-                "room_game_console," +
-                "room_cash_box," +
-                "room_projection" +
+                "hotel_id, " +
+                "pencion_id, " +
+                "season_id, " +
+                "room_type, " +
+                "room_stock, " +
+                "room_adult_price, " +
+                "room_child_price, " +
+                "room_bed_capacity, " +
+                "room_square_meter, " +
+                "room_television, " +
+                "room_minibar, " +
+                "room_game_console, " +
+                "room_cash_box, " +
+                "room_projection " +
                 ")" +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 

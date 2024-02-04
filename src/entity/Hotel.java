@@ -1,7 +1,10 @@
 package entity;
 
 
+import core.ComboItem;
+
 public class Hotel {
+
     private int id;
     private String name;
     private String address;
@@ -140,4 +143,7 @@ public class Hotel {
         this.room_service = room_service;
     }
 
+    public ComboItem getComboItem() {
+        return new ComboItem(this.getId(),this.getName() + " - " + this.getAddress());
+    }
 }

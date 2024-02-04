@@ -1,6 +1,7 @@
 package business;
 
 import Dao.RoomDao;
+import core.Helper;
 import entity.Hotel;
 import entity.Room;
 
@@ -9,14 +10,16 @@ import java.util.ArrayList;
 public class RoomManager {
     private final RoomDao roomDao;
     private Hotel hotel;
+    private HotelManager hotelManager;
+
     private Room room;
 
     public RoomManager() {
         this.roomDao = new RoomDao();
-        this.hotel = hotel;
+        this.hotel = new Hotel();
         this.room = room;
+        this.hotelManager = new HotelManager();
         }
-
 
     public ArrayList<Object[]> getForTable(int size, ArrayList<Room> rooms) {
         ArrayList<Object[]> roomObjList = new ArrayList<>();
@@ -24,6 +27,8 @@ public class RoomManager {
             Object[] rowObject = new Object[size];
             int i = 0;
             rowObject[i++] = obj.getRoom_id();
+            /*this.hotel = this.hotelManager.getById(obj.getHotel_id());
+            rowObject[i++] = hotel.getName();*/
             rowObject[i++] = obj.getHotel().getName();
             rowObject[i++] = obj.getPencion().getPencionType();
             rowObject[i++] = obj.getRoom_type();
@@ -38,13 +43,18 @@ public class RoomManager {
             rowObject[i++] = obj.isRoom_cash_box();
             rowObject[i++] = obj.isRoom_projection();
             roomObjList.add(rowObject);
-            //rowObject[i++] = obj.getSeason().getSeason_strt_date();
-            //rowObject[i++] = obj.getSeason().getSeason_fnsh_date();
-            //rowObject[i++] = obj.getHotel().getAddress();
         }
         return roomObjList;
     }
     public ArrayList<Room> findAll(){
         return this.roomDao.findAll();
+    }
+
+    public boolean save(Room room){
+        if (room.getRoom_id() !=0 ){
+            Helper.showMsg("error");
+
+        }
+        return this.roomDao.save(room);
     }
 }

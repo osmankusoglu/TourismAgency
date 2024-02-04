@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class EmployeeView extends Layout {
     private JPanel container;
     private User user;
-    private JTabbedPane tbp_hotel;
+    private JTabbedPane tbp_room;
     private JButton btn_emp_logout;
     private JButton btn_add_hotel;
     private JLabel lbl_welcome;
@@ -68,9 +68,10 @@ public class EmployeeView extends Layout {
         this.add(container);
         this.guiInitilaze(1200, 600);
         this.user = loginUser;
-        loadHotelAddView();
+        loadHotelAddView(null);
         loadPencionTable(null);
-        loadRoomTable(null);
+        loadRoomTable();
+        loadRoomAddComponent();
 
         this.lbl_welcome.setText("Hoş geldiniz : " + this.user.getUsername());
 
@@ -123,9 +124,10 @@ public class EmployeeView extends Layout {
         this.tbl_hotel.setComponentPopupMenu(hotelMenu);
         loadPencionTable(null);
         loadSeasonTable(null);
+
     }
 
-    public void loadHotelAddView() {
+    public void loadHotelAddView(Object o) {
         btn_add_hotel.addActionListener(e -> {
             HotelAddView hotelAddView = new HotelAddView(null);
             hotelAddView.addWindowListener(new WindowAdapter() { //yeni açılan pencereyi izler
@@ -165,12 +167,27 @@ public class EmployeeView extends Layout {
         createTable(this.tmdl_season, this.tbl_season, col_season, seasonList);
     }
 
-    public void loadRoomTable(ArrayList<Object[]> roomListe){
-        col_room= new Object[]{"ID", "Otel Adı", "Pansiyon", "Oda Tipi","Stok", "Yetişkin Fiyat", "Çocuk Fiyat", "m2","Tv","Minibar","Konsol","Kasa","Projeksiyon"};
+    public void loadRoomTable(){
+        col_room= new Object[]{"Id", "Otel Adı", "Pansiyon", "Oda Tipi","Stok", "Yetişkin Fiyat", "Çocuk Fiyat","Yatak Kapasitesi", "m2","Tv","Minibar","Konsol","Kasa","Projeksiyon"};
+        ArrayList<Object[]> roomListe = null;
         if (roomListe == null) {
             roomListe = this.roomManager.getForTable(col_room.length, this.roomManager.findAll());
         }
         createTable(this.tmdl_room, this.tbl_room_att, col_room, roomListe);
+    }
+
+    public void loadRoomAddComponent(){
+        btn_room_add.addActionListener(e -> {
+            RoomAddView roomAddView = new RoomAddView(null);
+            roomAddView.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    loadHotelTable(null);
+                    loadRoomTable();
+                }
+            });
+        });
+
     }
 
 }

@@ -45,6 +45,24 @@ public class PencionDao {
         }
         return pencionList;
     }
+
+    public ArrayList<Pencion> findByHotelId(int hotelId){
+        ArrayList<Pencion> pencionList = new ArrayList<>();
+        String sql = "SELECT * FROM public.pencion WHERE hotel_id = ?" ;
+        try {
+            PreparedStatement pr = con.prepareStatement(sql);
+            pr.setInt(1,hotelId);
+            ResultSet rs = pr.executeQuery();
+            while (rs.next()){
+                pencionList.add(this.match(rs));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return pencionList;
+    }
+
+
     public Pencion match(ResultSet rs) throws SQLException{
         Pencion obj = new Pencion();
         obj.setPencionId(rs.getInt("pencion_id"));

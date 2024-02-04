@@ -1,7 +1,5 @@
 package entity;
 
-import Dao.PencionDao;
-
 public class Room {
     private int room_id;
     private int hotel_id;
@@ -22,8 +20,17 @@ public class Room {
     private Season season;
     private Pencion pencion;
 
+    public enum RoomType{
+        Single_room,
+        Double_room,
+        junior_suite_room,
+        suite_room
+    }
+
     public Room() {
     }
+
+
 
     public Hotel getHotel() {
         return hotel;
@@ -189,4 +196,5 @@ public class Room {
                 ", room_projection=" + room_projection +
                 '}';
     }
+
 }
