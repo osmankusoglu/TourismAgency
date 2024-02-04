@@ -2,11 +2,8 @@ package Dao;
 
 import core.Db;
 import entity.Hotel;
-import entity.Pencion;
 import entity.Season;
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -55,5 +52,20 @@ public class SeasonDao {
             throwables.printStackTrace();
         }
         return true;
+    }
+    public Season getById(int id){
+        Season obj = null;
+        String query = "SELECT * FROM public.season WHERE season_id = ?";
+        try {
+            PreparedStatement pr = this.con.prepareStatement(query);
+            pr.setInt(1,id);
+            ResultSet rs = pr.executeQuery();
+            if (rs.next()){
+                obj = this.match(rs);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return obj;
     }
 }

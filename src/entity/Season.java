@@ -1,5 +1,9 @@
 package entity;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Season {
     private int season_id;
     private int hotel_id;
@@ -50,4 +54,5 @@ public class Season {
                 ", season_fnsh_date='" + season_fnsh_date + '\'' +
                 '}';
     }
+
 }

@@ -23,6 +23,7 @@ public class PencionView extends Layout {
         this.add(container);
         this.guiInitilaze(400, 350);
         this.lbl_hotel_id.setText(String.valueOf(this.hotel.getId()));
+        lbl_hotel_id.setText("OTEL ID : " + hotel.getId());
 
         btn_pencion_save.addActionListener(e -> {
             this.cmb_pencion.getSelectedItem().toString();

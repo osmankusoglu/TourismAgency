@@ -1,10 +1,8 @@
 package business;
 
-import Dao.PencionDao;
 import Dao.SeasonDao;
 import core.Helper;
 import entity.Hotel;
-import entity.Pencion;
 import entity.Season;
 
 import java.util.ArrayList;
@@ -12,6 +10,7 @@ import java.util.ArrayList;
 public class SeasonManager {
     private final SeasonDao seasonDao;
     private Hotel hotel;
+
     public SeasonManager(Hotel hotel) {
         this.hotel = hotel;
         this.seasonDao = new SeasonDao();
@@ -19,7 +18,6 @@ public class SeasonManager {
     public boolean saveSeason(Hotel hotel, String strDate,String endDate){
         if (hotel.getId() !=0 ){
             Helper.showMsg("done");
-            System.out.println("Kayıt");
         }
         return this.seasonDao.saveSeason(hotel,strDate,endDate);
     }

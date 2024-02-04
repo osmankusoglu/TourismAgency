@@ -1,7 +1,6 @@
 package view;
 
 import business.HotelManager;
-import business.PencionManager;
 import business.SeasonManager;
 import entity.Hotel;
 
@@ -32,12 +31,13 @@ public class SeasonView extends Layout{
         this.hotel = hotel;
         this.add(container);
         this.guiInitilaze(400, 350);
-        this.lbl_season_id.setText(String.valueOf(this.hotel.getId()));
+        //this.lbl_season_id.setText(String.valueOf(this.hotel.getId()));
+        lbl_season_id.setText("OTEL ID : " + hotel.getId());
 
         btn_season_save.addActionListener(e -> {
-            String convertedSeaonBegDate = LocalDate.parse(this.ftxt_season_strt.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString();
-            String convertedSeaonEndDate = LocalDate.parse(this.ftxt_season_fnsh.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString();
-            seasonManager.saveSeason(hotel,convertedSeaonBegDate,convertedSeaonEndDate);
+            String convertedSeaonStrtDate = LocalDate.parse(this.ftxt_season_strt.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString();
+            String convertedSeaonFnshDate = LocalDate.parse(this.ftxt_season_fnsh.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString();
+            seasonManager.saveSeason(hotel,convertedSeaonStrtDate,convertedSeaonFnshDate);
             dispose();
         });
     }

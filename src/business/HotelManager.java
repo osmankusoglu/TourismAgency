@@ -3,11 +3,7 @@ package business;
 import Dao.HotelDao;
 import core.Helper;
 import entity.Hotel;
-import entity.User;
-import view.AdminView;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class HotelManager {

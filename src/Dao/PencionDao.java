@@ -3,7 +3,6 @@ package Dao;
 import core.Db;
 import entity.Hotel;
 import entity.Pencion;
-import entity.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -51,6 +50,21 @@ public class PencionDao {
         obj.setPencionId(rs.getInt("pencion_id"));
         obj.setHotelId(rs.getInt("hotel_id"));
         obj.setPencionType(rs.getString("pencion_type"));
+        return obj;
+    }
+    public Pencion getById(int id){
+        Pencion obj = null;
+        String query = "SELECT * FROM public.pencion WHERE pencion_id = ?";
+        try {
+            PreparedStatement pr = this.con.prepareStatement(query);
+            pr.setInt(1,id);
+            ResultSet rs = pr.executeQuery();
+            if (rs.next()){
+                obj = this.match(rs);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
         return obj;
     }
 }

@@ -2,7 +2,6 @@ package Dao;
 
 import core.Db;
 import entity.Hotel;
-import entity.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +11,7 @@ import java.util.ArrayList;
 
 public class HotelDao {
     private final Connection con;
+    private HotelDao hotelDao;
 
     public HotelDao() {
         this.con = Db.getInstance();
@@ -102,6 +102,5 @@ public class HotelDao {
         }
         return obj;
     }
-
 
 }

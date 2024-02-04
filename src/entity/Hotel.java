@@ -20,6 +20,7 @@ public class Hotel {
     }
 
     public Hotel(int id, String name, String address, String mail, String phone, String star, boolean car_park, boolean wifi, boolean pool, boolean fitness, boolean concierge, boolean spa, boolean room_service) {
+
         this.id = id;
         this.name = name;
         this.address = address;
