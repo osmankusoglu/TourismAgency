@@ -19,7 +19,7 @@ public class RoomManager {
         this.hotel = new Hotel();
         this.room = room;
         this.hotelManager = new HotelManager();
-        }
+    }
 
     public ArrayList<Object[]> getForTable(int size, ArrayList<Room> rooms) {
         ArrayList<Object[]> roomObjList = new ArrayList<>();
@@ -27,8 +27,6 @@ public class RoomManager {
             Object[] rowObject = new Object[size];
             int i = 0;
             rowObject[i++] = obj.getRoom_id();
-            /*this.hotel = this.hotelManager.getById(obj.getHotel_id());
-            rowObject[i++] = hotel.getName();*/
             rowObject[i++] = obj.getHotel().getName();
             rowObject[i++] = obj.getPencion().getPencionType();
             rowObject[i++] = obj.getRoom_type();
@@ -46,12 +44,13 @@ public class RoomManager {
         }
         return roomObjList;
     }
-    public ArrayList<Room> findAll(){
+
+    public ArrayList<Room> findAll() {
         return this.roomDao.findAll();
     }
 
-    public boolean save(Room room){
-        if (room.getRoom_id() !=0 ){
+    public boolean save(Room room) {
+        if (room.getRoom_id() != 0) {
             Helper.showMsg("error");
 
         }

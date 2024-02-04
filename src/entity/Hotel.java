@@ -144,6 +144,6 @@ public class Hotel {
     }
 
     public ComboItem getComboItem() {
-        return new ComboItem(this.getId(),this.getName() + " - " + this.getAddress());
+        return new ComboItem(this.getId(), this.getName() + " - " + this.getAddress());
     }
 }

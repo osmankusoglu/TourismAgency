@@ -39,10 +39,11 @@ public class AdminView extends Layout {
 
         this.tbl_user.setComponentPopupMenu(userMenu);
     }
+
     public void loadUserTable(ArrayList<Object[]> usersList) {
         this.col_user = new Object[]{"Kullanıcı ID", "Kullanıcı Adı", "Parola", "Kullanıcı Rolü"};
-        if (usersList == null){
-            usersList = this.userManager.getForTable(col_user.length,userManager.findAll());
+        if (usersList == null) {
+            usersList = this.userManager.getForTable(col_user.length, userManager.findAll());
         }
         this.createTable(this.tmdl_user, tbl_user, col_user, usersList);
     }
@@ -87,25 +88,26 @@ public class AdminView extends Layout {
                 if (this.userManager.delete(selectUserId)) {
                     Helper.showMsg("done");
                     loadUserTable(null);
-                }else {
+                } else {
                     Helper.showMsg("error");
                 }
             }
         });
 
         this.btn_search.addActionListener(e -> {
-            ArrayList<User> userListBySearch = this.userManager.searchForTable((User.Role)  cmb_user_search.getSelectedItem());
-            ArrayList<Object[]> userRowListBySearch = this.userManager.getForTable(col_user.length,userListBySearch);
+            ArrayList<User> userListBySearch = this.userManager.searchForTable((User.Role) cmb_user_search.getSelectedItem());
+            ArrayList<Object[]> userRowListBySearch = this.userManager.getForTable(col_user.length, userListBySearch);
             loadUserTable(userRowListBySearch);
         });
 
     }
-    public void loadUserFilter(){
+
+    public void loadUserFilter() {
         this.cmb_user_search.setModel(new DefaultComboBoxModel<>(User.Role.values()));
         this.cmb_user_search.setSelectedItem(null);
     }
 
-    public void loadHotelTable(){
+    public void loadHotelTable() {
 
 
     }

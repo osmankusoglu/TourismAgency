@@ -10,22 +10,24 @@ import java.util.ArrayList;
 public class PencionManager {
     private final PencionDao pencionDao;
     private Hotel hotel;
+
     public PencionManager(Hotel hotel) {
         this.hotel = hotel;
         this.pencionDao = new PencionDao();
     }
-    public boolean savePencion(Hotel hotel, String val){
-       if (hotel.getId() !=0 ){
+
+    public boolean savePencion(Hotel hotel, String val) {
+        if (hotel.getId() != 0) {
             Helper.showMsg("done");
 
         }
-        return this.pencionDao.savePencion(hotel,val);
+        return this.pencionDao.savePencion(hotel, val);
     }
 
 
-    public ArrayList<Object[]> getForTable(int size, ArrayList<Pencion> pencions){
+    public ArrayList<Object[]> getForTable(int size, ArrayList<Pencion> pencions) {
         ArrayList<Object[]> pencionList = new ArrayList<>();
-        for (Pencion obj : pencions){
+        for (Pencion obj : pencions) {
             int i = 0;
             Object[] rowObject = new Object[size];
             rowObject[i++] = obj.getPencionId();
@@ -36,7 +38,8 @@ public class PencionManager {
         }
         return pencionList;
     }
-    public ArrayList<Pencion> findAll(){
+
+    public ArrayList<Pencion> findAll() {
         return this.pencionDao.findAll();
     }
 }

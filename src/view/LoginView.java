@@ -26,23 +26,23 @@ public class LoginView extends Layout {
     public LoginView() {
         this.userManager = new UserManager();
         this.add(container);
-        this.guiInitilaze(400,400);
+        this.guiInitilaze(400, 400);
 
         // login control
         btn_login.addActionListener(e -> {
-            JTextField[] checkFieldList = {this.fld_username,this.fld_pass};
-            if (Helper.isFieldListEmpty(checkFieldList)){
+            JTextField[] checkFieldList = {this.fld_username, this.fld_pass};
+            if (Helper.isFieldListEmpty(checkFieldList)) {
                 Helper.showMsg("fill");
-            }else {
-                User loginUser = this.userManager.findByLogin(this.fld_username.getText(),this.fld_pass.getText());
-                if (loginUser == null){
+            } else {
+                User loginUser = this.userManager.findByLogin(this.fld_username.getText(), this.fld_pass.getText());
+                if (loginUser == null) {
                     Helper.showMsg("notFound");
-                }else if("admin".equals(loginUser.getRole())) {
+                } else if ("admin".equals(loginUser.getRole())) {
                     System.out.println(loginUser.toString());
                     dispose();
                     AdminView adminView = new AdminView(loginUser);
 
-                }else if ("employee".equals(loginUser.getRole())) {
+                } else if ("employee".equals(loginUser.getRole())) {
                     EmployeeView employeeView = new EmployeeView(loginUser);
                     dispose();
                     System.out.println(loginUser.toString());

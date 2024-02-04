@@ -50,9 +50,9 @@ public class RoomAddView extends Layout {
         this.room = room;
         this.add(container);
         this.guiInitilaze(1000, 600);
-       this.cmb_room_type_add.setModel(new DefaultComboBoxModel<>(Room.RoomType.values()));
+        this.cmb_room_type_add.setModel(new DefaultComboBoxModel<>(Room.RoomType.values()));
 
-       for (Hotel hotel : this.hotelManager.findAll()){
+        for (Hotel hotel : this.hotelManager.findAll()) {
             cmb_hotel_add.addItem(hotel.getComboItem());
         }
         for (Season season : this.seasonManager.findAll()) {
@@ -63,7 +63,7 @@ public class RoomAddView extends Layout {
         }
 
         btn_room_add.addActionListener(e -> {
-            JTextField[] checkFieldList = {this.fld_stock_add, this.fld_adult_add, this.fld_child_add, this.fld_bed_capacity_add,this.fld_square_meter_add};
+            JTextField[] checkFieldList = {this.fld_stock_add, this.fld_adult_add, this.fld_child_add, this.fld_bed_capacity_add, this.fld_square_meter_add};
             if (Helper.isFieldListEmpty(checkFieldList)) {
                 Helper.showMsg("fill");
             } else {

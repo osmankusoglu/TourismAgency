@@ -11,7 +11,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class SeasonView extends Layout{
+public class SeasonView extends Layout {
     private JPanel container;
     private JLabel lbl_season_id;
     private JLabel lbl_season_strt;
@@ -25,7 +25,7 @@ public class SeasonView extends Layout{
     private SeasonManager seasonManager;
 
 
-    public SeasonView(Hotel hotel){
+    public SeasonView(Hotel hotel) {
         this.seasonManager = new SeasonManager(null);
         //this.pencionManager = new PencionManager(hotel);
         this.hotelManager = new HotelManager();
@@ -40,7 +40,7 @@ public class SeasonView extends Layout{
 
             String convertedSeaonFnshDate = LocalDate.parse(this.ftxt_season_fnsh.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString();
 
-            seasonManager.saveSeason(hotel,convertedSeaonStrtDate,convertedSeaonFnshDate);
+            seasonManager.saveSeason(hotel, convertedSeaonStrtDate, convertedSeaonFnshDate);
             dispose();
         });
     }

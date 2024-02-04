@@ -12,17 +12,18 @@ public class UserManager {
         this.userDao = new UserDao();
     }
 
-    public User findByLogin(String username, String password){
+    public User findByLogin(String username, String password) {
         // farklı işlemler yapabiliriz
-        return this.userDao.findByLogin(username,password);
+        return this.userDao.findByLogin(username, password);
     }
 
-    public ArrayList<User> findAll(){
+    public ArrayList<User> findAll() {
         return this.userDao.findAll();
     }
-    public ArrayList<Object[]> getForTable(int size,ArrayList<User>userList) {
+
+    public ArrayList<Object[]> getForTable(int size, ArrayList<User> userList) {
         ArrayList<Object[]> userObjList = new ArrayList<>();
-        for(User obj : userList) {
+        for (User obj : userList) {
             Object[] rowObject = new Object[size];
             int i = 0;
             rowObject[i++] = obj.getId();
@@ -33,6 +34,7 @@ public class UserManager {
         }
         return userObjList;
     }
+
     public boolean save(User user) {
         if (user.getId() != 0) {
         }
@@ -55,16 +57,17 @@ public class UserManager {
         }
         return this.userDao.delete(id);
     }
+
     public ArrayList<User> searchForTable(User.Role role) {
         String select = "SELECT * FROM public.user";
         ArrayList<String> whereList = new ArrayList<>();
 
-        if(role != null) {
-            whereList.add("user_role = '" + role.toString() + "'" );
+        if (role != null) {
+            whereList.add("user_role = '" + role.toString() + "'");
         }
-        String whereStr = String.join(" AND ",whereList);
+        String whereStr = String.join(" AND ", whereList);
         String query = select;
-        if(whereStr.length() > 0) {
+        if (whereStr.length() > 0) {
             query += " WHERE " + whereStr;
         }
         return this.userDao.selectByQuery(query);

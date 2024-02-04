@@ -19,17 +19,19 @@ public class Db {
             System.out.println(e.getMessage());
         }
     }
+
     public Connection getConnection() {
 
         return this.connection;
     }
+
     public static Connection getInstance() {
         try {
             if (instance == null || instance.getConnection().isClosed()) {
                 instance = new Db();
             }
 
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return instance.getConnection();

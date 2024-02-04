@@ -18,7 +18,7 @@ public class HotelManager {
         return this.hotelDao.findAll();
     }
 
-    public Hotel getById(int id){
+    public Hotel getById(int id) {
         return this.hotelDao.getById(id);
     }
 
@@ -45,8 +45,9 @@ public class HotelManager {
         }
         return hotelList;
     }
-    public boolean save(Hotel hotel){
-        if (hotel.getId() !=0 ){
+
+    public boolean save(Hotel hotel) {
+        if (hotel.getId() != 0) {
             Helper.showMsg("error");
 
         }

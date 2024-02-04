@@ -13,8 +13,8 @@ import java.sql.DriverManager;
 public class App {
     public static void main(String[] args) {
         Helper.setTheme();
-        //LoginView loginView = new LoginView();
-        EmployeeView employeeView = new EmployeeView(new User());
+        LoginView loginView = new LoginView();
+        //EmployeeView employeeView = new EmployeeView(new User());
 
     }
 }

@@ -48,6 +48,7 @@ public class RoomDao {
         obj.setHotel(this.hotelDao.getById(rs.getInt("hotel_id")));
         return obj;
     }
+
     public boolean save(Room room) {
         String query = "INSERT INTO public.room" +
                 "(" +
@@ -70,19 +71,19 @@ public class RoomDao {
 
         try {
             PreparedStatement pr = this.con.prepareStatement(query);
-            pr.setInt(1,room.getHotel_id());
-            pr.setInt(2,room.getPencion_id());
-            pr.setInt(3,room.getSeason_id());
-            pr.setString(4,room.getRoom_type());
-            pr.setInt(5,room.getRoom_stock());
-            pr.setInt(6,room.getRoom_adult_price());
-            pr.setInt(7,room.getRoom_child_price());
-            pr.setInt(8,room.getRoom_bed_capacity());
-            pr.setInt(9,room.getRoom_square_meter());
-            pr.setBoolean(10,room.isRoom_television());
-            pr.setBoolean(11,room.isRoom_minibar());
-            pr.setBoolean(12,room.isRoom_game_console());
-            pr.setBoolean(13,room.isRoom_cash_box());
+            pr.setInt(1, room.getHotel_id());
+            pr.setInt(2, room.getPencion_id());
+            pr.setInt(3, room.getSeason_id());
+            pr.setString(4, room.getRoom_type());
+            pr.setInt(5, room.getRoom_stock());
+            pr.setInt(6, room.getRoom_adult_price());
+            pr.setInt(7, room.getRoom_child_price());
+            pr.setInt(8, room.getRoom_bed_capacity());
+            pr.setInt(9, room.getRoom_square_meter());
+            pr.setBoolean(10, room.isRoom_television());
+            pr.setBoolean(11, room.isRoom_minibar());
+            pr.setBoolean(12, room.isRoom_game_console());
+            pr.setBoolean(13, room.isRoom_cash_box());
             pr.setBoolean(14, room.isRoom_projection());
             return pr.executeUpdate() != -1;
         } catch (SQLException e) {
@@ -90,15 +91,16 @@ public class RoomDao {
         }
         return true;
     }
-    public ArrayList<Room> findAll(){
+
+    public ArrayList<Room> findAll() {
         ArrayList<Room> roomList = new ArrayList<>();
         String sql = "SELECT * FROM public.room";
         try {
             ResultSet rs = this.con.createStatement().executeQuery(sql);
-            while (rs.next()){
+            while (rs.next()) {
                 roomList.add(this.match(rs));
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return roomList;

@@ -12,7 +12,7 @@ public class User {
     public User(String text, String text1, Object selectedItem) {
     }
 
-    public enum Role{
+    public enum Role {
         admin,
         employee
     }

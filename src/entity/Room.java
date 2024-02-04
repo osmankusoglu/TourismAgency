@@ -20,7 +20,7 @@ public class Room {
     private Season season;
     private Pencion pencion;
 
-    public enum RoomType{
+    public enum RoomType {
         Single_room,
         Double_room,
         junior_suite_room,
@@ -29,7 +29,6 @@ public class Room {
 
     public Room() {
     }
-
 
 
     public Hotel getHotel() {

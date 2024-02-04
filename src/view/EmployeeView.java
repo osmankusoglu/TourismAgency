@@ -167,8 +167,8 @@ public class EmployeeView extends Layout {
         createTable(this.tmdl_season, this.tbl_season, col_season, seasonList);
     }
 
-    public void loadRoomTable(){
-        col_room= new Object[]{"Id", "Otel Adı", "Pansiyon", "Oda Tipi","Stok", "Yetişkin Fiyat", "Çocuk Fiyat","Yatak Kapasitesi", "m2","Tv","Minibar","Konsol","Kasa","Projeksiyon"};
+    public void loadRoomTable() {
+        col_room = new Object[]{"Id", "Otel Adı", "Pansiyon", "Oda Tipi", "Stok", "Yetişkin Fiyat", "Çocuk Fiyat", "Yatak Kapasitesi", "m2", "Tv", "Minibar", "Konsol", "Kasa", "Projeksiyon"};
         ArrayList<Object[]> roomListe = null;
         if (roomListe == null) {
             roomListe = this.roomManager.getForTable(col_room.length, this.roomManager.findAll());
@@ -176,7 +176,7 @@ public class EmployeeView extends Layout {
         createTable(this.tmdl_room, this.tbl_room_att, col_room, roomListe);
     }
 
-    public void loadRoomAddComponent(){
+    public void loadRoomAddComponent() {
         btn_room_add.addActionListener(e -> {
             RoomAddView roomAddView = new RoomAddView(null);
             roomAddView.addWindowListener(new WindowAdapter() {

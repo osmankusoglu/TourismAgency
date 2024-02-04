@@ -56,7 +56,8 @@ public class Season {
                 ", season_fnsh_date='" + season_fnsh_date + '\'' +
                 '}';
     }
+
     public ComboItem getComboItem() {
-        return new ComboItem(this.getSeason_id(),this.getSeason_strt_date() + " - " + this.getSeason_fnsh_date());
+        return new ComboItem(this.getSeason_id(), this.getSeason_strt_date() + " - " + this.getSeason_fnsh_date());
     }
 }

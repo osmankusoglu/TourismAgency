@@ -7,7 +7,7 @@ public class Pencion {
     private int hotel_id;
     private String pencion_type;
 
-    public Pencion(){
+    public Pencion() {
 
     }
 
@@ -43,7 +43,8 @@ public class Pencion {
                 ", pencion_type='" + pencion_type + '\'' +
                 '}';
     }
+
     public ComboItem getComboItem() {
-        return new ComboItem(this.getPencionId(),this.getPencionType());
+        return new ComboItem(this.getPencionId(), this.getPencionType());
     }
 }

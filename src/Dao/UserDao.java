@@ -20,12 +20,12 @@ public class UserDao {
         this.con = Db.getInstance();
     }
 
-    public ArrayList<User>findAll() {
+    public ArrayList<User> findAll() {
         ArrayList<User> userList = new ArrayList<>();
         String sql = "SELECT * FROM public.user";
         try {
             ResultSet rs = this.con.createStatement().executeQuery(sql);
-            while (rs.next()){
+            while (rs.next()) {
                 userList.add(this.match(rs));
             }
         } catch (SQLException e) {
@@ -36,18 +36,18 @@ public class UserDao {
 
     // DB user function
     // Veri tabanına bağlanıp kullanıcı var mı sorgusu ve daha sonrasında objeye atayıp döndürme
-    public User findByLogin(String username,String password) {
-        User obj =null;
+    public User findByLogin(String username, String password) {
+        User obj = null;
         String query = "SELECT * FROM public.user WHERE user_name =? AND user_pass =?";
         try {
             PreparedStatement pr = this.con.prepareStatement(query);
-            pr.setString(1,username);
-            pr.setString(2,password);
+            pr.setString(1, username);
+            pr.setString(2, password);
             ResultSet rs = pr.executeQuery();
             if (rs.next()) {
                 obj = this.match(rs);
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return obj;
@@ -59,12 +59,12 @@ public class UserDao {
         String query = "SELECT * FROM public.user WHERE user_id = ?";
         try {
             PreparedStatement pr = this.con.prepareStatement(query);
-            pr.setInt(1,id);
+            pr.setInt(1, id);
             ResultSet rs = pr.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 obj = this.match(rs);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return obj;
@@ -79,21 +79,23 @@ public class UserDao {
         obj.setRole(rs.getString("user_role"));
         return obj;
     }
+
     public boolean save(User user) {
         String query = "INSERT INTO public.user (user_name, user_pass,user_role) VALUES(?,?,?)";
-        try{
+        try {
             PreparedStatement pr = this.con.prepareStatement(query);
             pr.setString(1, user.getUsername());
             pr.setString(2, user.getPassword());
             pr.setString(3, user.getRole());
-            return pr.executeUpdate()!= -1;
+            return pr.executeUpdate() != -1;
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return true;
     }
-    public boolean update(User user){
+
+    public boolean update(User user) {
         String query = "UPDATE public.user SET " +
                 "user_name= ? , " +
                 "user_pass = ? , " +
@@ -101,12 +103,12 @@ public class UserDao {
                 "WHERE user_id = ? ";
         try {
             PreparedStatement pr = con.prepareStatement(query);
-            pr.setString(1,user.getUsername());
-            pr.setString(2,user.getPassword());
-            pr.setString(3,user.getRole());
-            pr.setInt(4,user.getId());
+            pr.setString(1, user.getUsername());
+            pr.setString(2, user.getPassword());
+            pr.setString(3, user.getRole());
+            pr.setInt(4, user.getId());
             return pr.executeUpdate() != -1;
-        }catch (SQLException throwables){
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return true;
@@ -116,24 +118,24 @@ public class UserDao {
         String query = "DELETE FROM public.user WHERE user_id = ?";
         try {
             PreparedStatement pr = this.con.prepareStatement(query);
-            pr.setInt(1,id);
+            pr.setInt(1, id);
             return pr.executeUpdate() != -1;
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return true;
     }
 
     public ArrayList<User> selectByQuery(String query) {
-            ArrayList<User> userList = new ArrayList<>();
-            try {
-                ResultSet rs = this.con.createStatement().executeQuery(query);
-                while (rs.next()) {
-                    userList.add(this.match(rs));
-                }
-            } catch (SQLException throwable) {
-                throwable.printStackTrace();
+        ArrayList<User> userList = new ArrayList<>();
+        try {
+            ResultSet rs = this.con.createStatement().executeQuery(query);
+            while (rs.next()) {
+                userList.add(this.match(rs));
             }
-            return userList;
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
+        return userList;
     }
+}

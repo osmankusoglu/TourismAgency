@@ -87,17 +87,18 @@ public class HotelDao {
         }
         return true;
     }
-    public Hotel getById(int id){
+
+    public Hotel getById(int id) {
         Hotel obj = null;
         String query = "SELECT * FROM public.hotel WHERE id = ?";
         try {
             PreparedStatement pr = this.con.prepareStatement(query);
-            pr.setInt(1,id);
+            pr.setInt(1, id);
             ResultSet rs = pr.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 obj = this.match(rs);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return obj;

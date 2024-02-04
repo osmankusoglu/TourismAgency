@@ -15,17 +15,18 @@ public class SeasonManager {
         this.hotel = hotel;
         this.seasonDao = new SeasonDao();
     }
-    public boolean saveSeason(Hotel hotel, String strDate,String endDate){
-        if (hotel.getId() !=0 ){
+
+    public boolean saveSeason(Hotel hotel, String strDate, String endDate) {
+        if (hotel.getId() != 0) {
             Helper.showMsg("done");
         }
-        return this.seasonDao.saveSeason(hotel,strDate,endDate);
+        return this.seasonDao.saveSeason(hotel, strDate, endDate);
     }
 
 
-    public ArrayList<Object[]> getForTable(int size, ArrayList<Season> seasons){
+    public ArrayList<Object[]> getForTable(int size, ArrayList<Season> seasons) {
         ArrayList<Object[]> seasonList = new ArrayList<>();
-        for (Season obj : seasons){
+        for (Season obj : seasons) {
             int i = 0;
             Object[] rowObject = new Object[size];
             rowObject[i++] = obj.getSeason_id();
@@ -37,7 +38,8 @@ public class SeasonManager {
         }
         return seasonList;
     }
-    public ArrayList<Season> findAll(){
+
+    public ArrayList<Season> findAll() {
         return this.seasonDao.findAll();
     }
 }
