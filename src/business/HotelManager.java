@@ -6,22 +6,31 @@ import entity.Hotel;
 
 import java.util.ArrayList;
 
+//Otelleri yöneten sınıf.
 public class HotelManager {
     private final HotelDao hotelDao;
 
-
+    //HotelManager sınıfının yapıcı metodu.
     public HotelManager() {
         this.hotelDao = new HotelDao();
     }
 
+    //Tüm otelleri getirir.
     public ArrayList<Hotel> findAll() {
         return this.hotelDao.findAll();
     }
 
+    //Belirtilen otel ID'sine ait oteli getirir.
     public Hotel getById(int id) {
         return this.hotelDao.getById(id);
     }
 
+    /*
+     * Otelleri belirtilen boyutta bir nesne dizisi olarak getirir.
+     * @param size   Nesne dizisinin boyutu
+     * @param hotels Otel listesi
+     * @return Belirtilen boyutta bir nesne dizisi
+     */
     public ArrayList<Object[]> getForTable(int size, ArrayList<Hotel> hotels) {
         ArrayList<Object[]> hotelList = new ArrayList<>();
         for (Hotel obj : hotels) {
@@ -46,6 +55,11 @@ public class HotelManager {
         return hotelList;
     }
 
+    /*
+     * Yeni bir otel kaydı oluşturur.
+     * @param hotel Otel nesnesi
+     * @return Kayıt işlemi başarılıysa true, aksi takdirde false
+     */
     public boolean save(Hotel hotel) {
         if (hotel.getId() != 0) {
             Helper.showMsg("error");

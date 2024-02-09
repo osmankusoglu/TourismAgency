@@ -20,6 +20,7 @@ public class User {
     public User() {
     }
 
+    //User(Kullanıcı) oluşturmak için kullanılan parametre verdiğim kurucu metot
     public User(int id, String username, String password, String role) {
         this.id = id;
         this.username = username;
@@ -27,6 +28,7 @@ public class User {
         this.role = role;
     }
 
+    //Kullanıcı getter setterları get eden ve set eden metotlar
     public int getId() {
         return id;
     }
@@ -59,6 +61,7 @@ public class User {
         this.role = role;
     }
 
+    //String olarak gösteren metot
     @Override
     public String toString() {
         return "User{" +

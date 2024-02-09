@@ -12,6 +12,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class SeasonView extends Layout {
+
+    // SeasonView sınıfının constructor'ı.
     private JPanel container;
     private JLabel lbl_season_id;
     private JLabel lbl_season_strt;
@@ -21,7 +23,6 @@ public class SeasonView extends Layout {
     private JFormattedTextField ftxt_season_fnsh;
     private Hotel hotel;
     private HotelManager hotelManager;
-    //private PencionManager pencionManager;
     private SeasonManager seasonManager;
 
 
@@ -32,19 +33,21 @@ public class SeasonView extends Layout {
         this.hotel = hotel;
         this.add(container);
         this.guiInitilaze(400, 350);
-        //this.lbl_season_id.setText(String.valueOf(this.hotel.getId()));
+
+        // "btn_season_save" butonuna ActionListener eklenir.
         lbl_season_id.setText("OTEL ID : " + hotel.getId());
 
+        // Otele ait sezon bilgileri kaydedilir.
         btn_season_save.addActionListener(e -> {
-            String convertedSeaonStrtDate = LocalDate.parse(this.ftxt_season_strt.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString();
-
-            String convertedSeaonFnshDate = LocalDate.parse(this.ftxt_season_fnsh.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString();
+            LocalDate convertedSeaonStrtDate = LocalDate.parse(this.ftxt_season_strt.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            LocalDate convertedSeaonFnshDate = LocalDate.parse(this.ftxt_season_fnsh.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
             seasonManager.saveSeason(hotel, convertedSeaonStrtDate, convertedSeaonFnshDate);
             dispose();
         });
     }
 
+    // UI bileşenleri oluşturulurken formatlı metin alanları için MaskFormatter kullanılır.
     private void createUIComponents() throws ParseException {
         this.ftxt_season_strt = new JFormattedTextField(new MaskFormatter("##/##/####"));
         this.ftxt_season_fnsh = new JFormattedTextField(new MaskFormatter("##/##/####"));

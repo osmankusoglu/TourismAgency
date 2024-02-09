@@ -10,13 +10,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class HotelDao {
+    // Veritabanı bağlantısını temsil eden nesne
     private final Connection con;
+
+
     private HotelDao hotelDao;
 
+    // Kurucu metod: Veritabanı bağlantısını kurma
     public HotelDao() {
         this.con = Db.getInstance();
     }
 
+    // Tüm otelleri getiren metot
     public ArrayList<Hotel> findAll() {
         ArrayList<Hotel> hotelList = new ArrayList<>();
         String sql = "SELECT * FROM public.hotel";
@@ -31,6 +36,7 @@ public class HotelDao {
         return hotelList;
     }
 
+    // ResultSet'ten alınan verileri bir Hotel nesnesine eşleyen metot
     public Hotel match(ResultSet rs) throws SQLException {
         Hotel obj = new Hotel();
         obj.setId(rs.getInt("id"));
@@ -49,6 +55,7 @@ public class HotelDao {
         return obj;
     }
 
+    // Yeni bir otel ekleyen metot
     public boolean save(Hotel hotel) {
         String query = "INSERT INTO public.hotel" +
                 "(" +
@@ -88,6 +95,7 @@ public class HotelDao {
         return true;
     }
 
+    // Belirli bir otel ID'si ile oteli getiren metot
     public Hotel getById(int id) {
         Hotel obj = null;
         String query = "SELECT * FROM public.hotel WHERE id = ?";
@@ -102,6 +110,7 @@ public class HotelDao {
             e.printStackTrace();
         }
         return obj;
+
     }
 
 }

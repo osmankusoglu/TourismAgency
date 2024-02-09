@@ -11,12 +11,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PencionDao {
+
+    // Veritabanı bağlantısını temsil eden nesne
     private final Connection con;
 
+    // Kurucu metod: Veritabanı bağlantısını kur
     public PencionDao() {
         this.con = Db.getInstance();
     }
 
+    // Belirli bir otel için yeni bir pansiyon tipi ekleyen metot
     public boolean savePencion(Hotel hotel, String val) {
         String query = "INSERT INTO public.pencion" +
                 " (hotel_id, pencion_type)" +
@@ -33,6 +37,7 @@ public class PencionDao {
         return true;
     }
 
+    // Tüm pansiyon tiplerini getiren metot
     public ArrayList<Pencion> findAll() {
         ArrayList<Pencion> pencionList = new ArrayList<>();
         String sql = "SELECT * FROM public.pencion";
@@ -47,6 +52,8 @@ public class PencionDao {
         return pencionList;
     }
 
+
+    // Belirli bir otel için pansiyon tiplerini getiren metot
     public ArrayList<Pencion> findByHotelId(int hotelId) {
         ArrayList<Pencion> pencionList = new ArrayList<>();
         String sql = "SELECT * FROM public.pencion WHERE hotel_id = ?";
@@ -63,7 +70,7 @@ public class PencionDao {
         return pencionList;
     }
 
-
+    // ResultSet'ten alınan verileri bir Pencion nesnesine eşleyen metot
     public Pencion match(ResultSet rs) throws SQLException {
         Pencion obj = new Pencion();
         obj.setPencionId(rs.getInt("pencion_id"));
@@ -72,6 +79,7 @@ public class PencionDao {
         return obj;
     }
 
+    // Belirli bir panisyon tipi ID'si ile yemek tipini getiren metot
     public Pencion getById(int id) {
         Pencion obj = null;
         String query = "SELECT * FROM public.pencion WHERE pencion_id = ?";

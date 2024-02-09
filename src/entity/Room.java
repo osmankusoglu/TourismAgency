@@ -1,6 +1,7 @@
 package entity;
 
 public class Room {
+    //Oda ile ilişkilendirilmiş tanımlamalar
     private int room_id;
     private int hotel_id;
     private int pencion_id;
@@ -20,6 +21,7 @@ public class Room {
     private Season season;
     private Pencion pencion;
 
+    //Oda tiplerinin enum tanımlayan metot
     public enum RoomType {
         Single_room,
         Double_room,
@@ -27,10 +29,11 @@ public class Room {
         suite_room
     }
 
+    //Parametresiz kurucu metot
     public Room() {
     }
 
-
+    //Hotel getter ve setterlarının olduğu metotlar
     public Hotel getHotel() {
         return hotel;
     }
@@ -195,5 +198,6 @@ public class Room {
                 ", room_projection=" + room_projection +
                 '}';
     }
+
 
 }

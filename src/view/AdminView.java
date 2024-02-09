@@ -23,23 +23,37 @@ public class AdminView extends Layout {
     private JPopupMenu userMenu;
     private Object[] col_user;
 
+    // AdminView sınıfının constructor metodu
     public AdminView(User loggedInUser) {
         this.userManager = new UserManager();
         this.add(container);
         this.guiInitilaze(700, 500);
         this.user = loggedInUser;
         if (loggedInUser == null) {
-            dispose();
+            dispose(); // Pencereyi kapatma
         }
         this.lbl_welcome.setText("Hoşgeldiniz " + this.user.getUsername());
+
+        /*
+        Kullanıcı tablosunu yükleme
+        Kullanıcı bileşenlerini yükleme
+        Kullanıcı filtresini yükleme
+        */
 
         loadUserTable(null);
         loadUserComponent();
         loadUserFilter();
 
         this.tbl_user.setComponentPopupMenu(userMenu);
+        btn_logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
     }
 
+    // Kullanıcı tablosunu yükleme metodu
     public void loadUserTable(ArrayList<Object[]> usersList) {
         this.col_user = new Object[]{"Kullanıcı ID", "Kullanıcı Adı", "Parola", "Kullanıcı Rolü"};
         if (usersList == null) {
@@ -48,7 +62,7 @@ public class AdminView extends Layout {
         this.createTable(this.tmdl_user, tbl_user, col_user, usersList);
     }
 
-
+    // Kullanıcı bileşenlerini yükleme metodu
     public void loadUserComponent() {
         //tıklanan satırın seçilmesi
         this.tbl_user.addMouseListener(new MouseAdapter() {
@@ -82,18 +96,30 @@ public class AdminView extends Layout {
                 }
             });
         });
+        // "Sil" işlevini içeren bir ActionListener eklenir.
         userMenu.add("Sil").addActionListener(e -> {
+
+            // Kullanıcıya emin olup olmadığını soran bir onay penceresi gösterilir.
             if (Helper.confirm("sure")) {
+
+                // Seçilen kullanıcının ID'si alınır.
                 int selectUserId = this.getTableSelectedRow(tbl_user, 0);
+
+                // Kullanıcı ID'sine göre kullanıcı silinir.
                 if (this.userManager.delete(selectUserId)) {
+
+                    // Başarılı bir şekilde silindiğinde kullanıcıya mesaj gösterilir.
                     Helper.showMsg("done");
                     loadUserTable(null);
                 } else {
+
+                    // Silme işlemi başarısızsa kullanıcıya hata mesajı gösterilir.
                     Helper.showMsg("error");
                 }
             }
         });
 
+        // Kullanıcı arama butonu için ActionListener ekleme
         this.btn_search.addActionListener(e -> {
             ArrayList<User> userListBySearch = this.userManager.searchForTable((User.Role) cmb_user_search.getSelectedItem());
             ArrayList<Object[]> userRowListBySearch = this.userManager.getForTable(col_user.length, userListBySearch);
@@ -102,13 +128,9 @@ public class AdminView extends Layout {
 
     }
 
+    // Kullanıcı filtresini yükleme metodu
     public void loadUserFilter() {
         this.cmb_user_search.setModel(new DefaultComboBoxModel<>(User.Role.values()));
         this.cmb_user_search.setSelectedItem(null);
-    }
-
-    public void loadHotelTable() {
-
-
     }
 }

@@ -5,6 +5,7 @@ import core.ComboItem;
 
 public class Hotel {
 
+    //Otel ile ilişkili tanımlamalar
     private int id;
     private String name;
     private String address;
@@ -22,6 +23,7 @@ public class Hotel {
     public Hotel() {
     }
 
+    //Parametreli otel kurucu metodu
     public Hotel(int id, String name, String address, String mail, String phone, String star, boolean car_park, boolean wifi, boolean pool, boolean fitness, boolean concierge, boolean spa, boolean room_service) {
 
         this.id = id;
@@ -39,6 +41,8 @@ public class Hotel {
         this.room_service = room_service;
     }
 
+
+    //Hotel getter setterlarının metotları
     public int getId() {
         return id;
     }

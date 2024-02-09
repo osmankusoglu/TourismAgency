@@ -10,27 +10,40 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserDao {
+    //Veri tabanı bağlantısını yapan nesne
     private final Connection con;
 
+    //Kullanıcı özellikleri
     private int id;
     private String name;
 
-
+    //Veritabanı bağlantısını kurucu metod aracılığıyla oluşturma
     public UserDao() {
         this.con = Db.getInstance();
     }
 
+    // Tüm kullanıcıları getiren metot
     public ArrayList<User> findAll() {
+
+        // Boş bir User listesi oluşturuluyor.
         ArrayList<User> userList = new ArrayList<>();
+        // SQL sorgusu
         String sql = "SELECT * FROM public.user";
         try {
+            // Veritabanı bağlantısından bir Statement nesnesi alınıyor ve SQL sorgusu çalıştırılıyor.
             ResultSet rs = this.con.createStatement().executeQuery(sql);
+
+            // ResultSet üzerinde döngü ile sonuçlar okunuyor
             while (rs.next()) {
+
+                // Her bir satır için "match" metodunu kullanarak bir User nesnesi oluşturulup userList'e ekleniyor.
                 userList.add(this.match(rs));
             }
+            // SQL isteği sırasında oluşan herhangi bir hata durumunda hata detayları yazdırılıyor.
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        // Sonuç olarak, tüm kullanıcıları içeren User listesi döndürülüyor.
         return userList;
     }
 
@@ -80,6 +93,7 @@ public class UserDao {
         return obj;
     }
 
+    // Yeni bir kullanıcıyı veritabanına ekleyen metot
     public boolean save(User user) {
         String query = "INSERT INTO public.user (user_name, user_pass,user_role) VALUES(?,?,?)";
         try {
@@ -95,6 +109,7 @@ public class UserDao {
         return true;
     }
 
+    // Var olan bir kullanıcıyı güncelleyen metot
     public boolean update(User user) {
         String query = "UPDATE public.user SET " +
                 "user_name= ? , " +
@@ -114,6 +129,7 @@ public class UserDao {
         return true;
     }
 
+    // Belirli bir kullanıcıyı ID ile silen metot
     public boolean delete(int id) {
         String query = "DELETE FROM public.user WHERE user_id = ?";
         try {
@@ -126,6 +142,7 @@ public class UserDao {
         return true;
     }
 
+    // Belirli bir sorguya göre kullanıcıları seçen metot
     public ArrayList<User> selectByQuery(String query) {
         ArrayList<User> userList = new ArrayList<>();
         try {

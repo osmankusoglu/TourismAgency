@@ -2,15 +2,18 @@ package entity;
 
 import core.ComboItem;
 
+//Pansiyon tanımlamaları
 public class Pencion {
     private int pencion_id;
     private int hotel_id;
     private String pencion_type;
 
+    // Pansiyon parametresiz metodu
     public Pencion() {
 
     }
 
+    //getter setterlar
     public int getPencionId() {
         return pencion_id;
     }
@@ -35,6 +38,7 @@ public class Pencion {
         this.pencion_type = pencion_type;
     }
 
+    //toString metodu
     @Override
     public String toString() {
         return "Pencion{" +

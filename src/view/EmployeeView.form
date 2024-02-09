@@ -161,23 +161,13 @@
                     </constraints>
                     <properties/>
                   </component>
-                  <component id="b9de7" class="javax.swing.JTextField" binding="fld_hotel_strt_date">
+                  <component id="b9de7" class="javax.swing.JFormattedTextField" binding="fld_hotel_strt_date" custom-create="true">
                     <constraints>
                       <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="150" height="-1"/>
                       </grid>
                     </constraints>
                     <properties/>
-                  </component>
-                  <component id="c047f" class="javax.swing.JTextField" binding="fld_hotel_fnsh_date">
-                    <constraints>
-                      <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="-1"/>
-                      </grid>
-                    </constraints>
-                    <properties>
-                      <text value=""/>
-                    </properties>
                   </component>
                   <component id="9f559" class="javax.swing.JTextField" binding="fld_hotel_adult">
                     <constraints>
@@ -249,6 +239,14 @@
                       </component>
                     </children>
                   </grid>
+                  <component id="e6029" class="javax.swing.JFormattedTextField" binding="fld_hotel_fnsh_date" custom-create="true">
+                    <constraints>
+                      <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                  </component>
                 </children>
               </grid>
               <scrollpane id="3a487">
@@ -274,14 +272,19 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="f7770" class="javax.swing.JTable" binding="tbl_reserv">
+              <scrollpane id="3202f">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                    <preferred-size width="150" height="50"/>
-                  </grid>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
-              </component>
+                <border type="none"/>
+                <children>
+                  <component id="e678" class="javax.swing.JTable" binding="tbl_reserv">
+                    <constraints/>
+                    <properties/>
+                  </component>
+                </children>
+              </scrollpane>
             </children>
           </grid>
         </children>
